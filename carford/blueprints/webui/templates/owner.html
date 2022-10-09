@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+{% block content %}
+
+<!--vehicle_owner[0] == Owner
+    vehicle_owner[1] == Vehicle_Owner
+    vehicle_owner[2] == Vehicle 
+-->
+
+<div class="container">
+    <div class="text-center">
+        <h1>{{ vehicles[0][0].name }}</h1>
+        <p>Vehicles</p> 
+    </div>
+    {% for vehicle_owner in vehicles %}
+        <div class="jumbotron">
+            <h2>{{vehicle_owner[2].brand}}</h2>
+            <h4>{{vehicle_owner[2].color}}</h4>
+            <p>
+                {{vehicle_owner[2].model}}
+            </p>
+            <form action="{{url_for('restapi.vehicleresource', vehicle_id=vehicle_owner[2].id)}}" method="delete">
+                <button type="submit" >Delete</button>
+            </form>
+        </div>
+    {% endfor %}
+</div>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+{% endblock %}

@@ -1,0 +1,9 @@
+dynaconf==3.1.9
+Flask-Admin
+Flask-Bootstrap
+Flask-RESTful==0.3.9
+flask-simplelogin
+Flask-SQLAlchemy
+Flask==2.1.2
+Flask-DebugToolbar==0.13.1
+SQLAlchemy-serializer
