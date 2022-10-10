@@ -32,7 +32,9 @@ def populate_db():
     ]
     db.session.bulk_save_objects(data)
     db.session.commit()
-    return "Sucess - populate db"
+    # return 3 querys for tests
+    return Owner.query.all() , Vehicles.query.all() ,Vehicle_owner.query.all(),
+    
 
 
 def init_app(app):

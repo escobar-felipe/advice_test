@@ -21,6 +21,7 @@ def app():
 
 
 @pytest.fixture(scope="session")
-def products(app):
+def db_information(app):
     with app.app_context():
         return populate_db()
+    

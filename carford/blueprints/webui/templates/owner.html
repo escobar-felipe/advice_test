@@ -1,28 +1,87 @@
 {% extends "index.html" %}
 {% block content %}
 
-<!--vehicle_owner[0] == Owner
-    vehicle_owner[1] == Vehicle_Owner
-    vehicle_owner[2] == Vehicle 
+<!--vehicles_owners[0] == Owner
+    vehicles_owners[1] == Vehicle_Owner
+    vehicles_owners[2] == Vehicle 
 -->
 
 <div class="container">
     <div class="text-center">
-        <h1>{{ vehicles[0][0].name }}</h1>
+        <h1>{{ vehicles_owners[0][0].name }}</h1>
         <p>Vehicles</p> 
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_addvehicle">
+            Add Vehicle
+        </button>
+        <button class="btn btn-danger" onclick="delete_owner('{{vehicles_owners[0][0].id}}')" >Delete Owner</button>
     </div>
-    {% for vehicle_owner in vehicles %}
+    {% for vehicle_owner in vehicles_owners %}
         <div class="jumbotron">
             <h2>{{vehicle_owner[2].brand}}</h2>
             <h4>{{vehicle_owner[2].color}}</h4>
             <p>
                 {{vehicle_owner[2].model}}
             </p>
-            <form action="{{url_for('restapi.vehicleresource', vehicle_id=vehicle_owner[2].id)}}" method="delete">
-                <button type="submit" >Delete</button>
-            </form>
+            <button data-toggle="modal" data-target="#modal_updateowner">New Owner</button>        
+            <button onclick="delete_car('{{vehicle_owner[2].id}}')">Delete</button>
+        </div>
+        
+        <div class="modal fade" id="modal_updateowner" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    <h4 class="modal-title" id="modalLabel">Update owner</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="owner">New Owner:</label>
+                            {{ form_owners.owner( class="form-control") }}
+                        </div>
+                        <button onclick="update_owner('{{vehicle_owner[2].id}}')" id="btn_update_submit" class="btn btn-primary">Submit</button>                
+                    </div>
+                </div>
+            </div>
         </div>
     {% endfor %}
+
+    <div class="modal fade" id="modal_addvehicle" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                <h4 class="modal-title" id="modalLabel">Add Vehicle</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="form_add_vehicle">
+                        <div class="form-group">
+                            <label for="owner">Owner:</label>
+                            {{ form_vehicle.owner( class="form-control") }}
+                        </div>
+                        <div class="form-group">
+                            <label for="color">Color:</label>
+                            {{ form_vehicle.color( class="form-control") }}
+                        </div>
+                        <div class="form-group">
+                            <label for="model">Model:</label>
+                            {{ form_vehicle.model( class="form-control") }}
+                          </div>
+                        <div class="form-group">
+                            <label for="brand">Brand:</label>
+                            {{ form_vehicle.brand( class="form-control") }}
+                          </div>
+                        <button onclick="add_vehicle()" class="btn btn-primary">Submit</button>
+                      </form>                  
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/owner.js')}}"></script>
+<script src="{{ url_for('static', filename='js/index.js')}}"></script>
 {% endblock %}

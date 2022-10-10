@@ -6,7 +6,9 @@ class Add_Vehicle(FlaskForm):
     model = SelectField("Model",choices=[("hatch","hatch"),("sedan","sedan"),("convertible","convertible")])
     brand = SelectField("Brand", choices=[("audi","audi"),("bmw","bmw"),("jeep","jeep"),("porshe","porshe")])
     owner = SelectField("Owner",choices=[])
-    add_vehicle = SubmitField("Add Vehicle")
 
 class Add_Owner(FlaskForm):
     name= StringField("Name")
+
+class Owners(FlaskForm):
+    owner = SelectField("Owner",choices=[])

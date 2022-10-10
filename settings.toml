@@ -7,7 +7,7 @@ FLASK_ADMIN_TEMPLATE_MODE = "bootstrap3"
 FLASK_ADMIN_SWATCH = 'cerulean'
 SQLALCHEMY_DATABASE_URI = 'sqlite:///development.db'
 TITLE = "Carford"
-SECRET_KEY = "jadkfbsdkjbfbh"
+SECRET_KEY = "aee82d0cc80a7df0398f6e1713c5877031fe31e07016aaf28d0bd32a68b7d234"
 PASSWORD_SCHEMES = ['pbkdf2_sha512', 'md5_crypt']
 EXTENSIONS = [
     "carford.ext.appearance:init_app",

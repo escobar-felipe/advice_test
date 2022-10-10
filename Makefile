@@ -27,3 +27,8 @@ clean:
 	rm -rf htmlcov
 	rm -rf .tox/
 	rm -rf docs/_build
+
+run:
+	docker-compose up --build
+logs:
+	docker-compose logs -f
