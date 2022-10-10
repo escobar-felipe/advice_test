@@ -6,5 +6,6 @@ services:
     build: .
     ports:
             - "8000:8000"
-    command: bash -c "flask create-db && flask populate-db && flask add-user -u admin -p 1234"
+    command: bash -c "flask drop-db && flask create-db && flask populate-db && flask add-user -u admin -p 1234 && gunicorn carford.wsgi:app --bind=0.0.0.0:8000"
+
     
