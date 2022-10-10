@@ -6,3 +6,5 @@ services:
     build: .
     ports:
             - "8000:8000"
+    command: bash -c "flask create-db && flask populate-db && flask add-user -u admin -p 1234"
+    
