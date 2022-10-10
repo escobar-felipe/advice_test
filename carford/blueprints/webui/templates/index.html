@@ -2,38 +2,51 @@
 {% block title %}{{config.get('TITLE')}}{% endblock %}
 
 {% block navbar %}
-<div class="navbar">
-<div class="navbar-header">
-    <a class="navbar-brand" href="{{url_for('webui.index')}}">
-    <img alt="Brand" src="{{ url_for('static', filename='img/Carford.png')}}" height="20px">
-    </a>
-    <ul class="nav navbar-nav">
+
+<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{url_for('webui.index')}}">Carford</a>
+      </div>    
+      <ul class="nav navbar-nav">
         <li><a href="{{url_for('webui.index')}}">Home</a></li>
-      </ul>
-</div>
+        </ul>
+      <div class="navbar-collapse collapse">
+        <form class="navbar-form navbar-right" role="form">
+          <div class="form-group">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_addvehicle">
+                Add Vehicle
+            </button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_addowner">
+                Add Owner
+            </button>
+        </form>
+      </div><!--/.navbar-collapse -->
+    </div>
+  </div>
 </div>
 {% endblock %}
 
 {% block content %}
-<div class="container">    
-<h1>{{config.get('TITLE')}} - Opportunities </h1>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal_addvehicle">
-        Add Vehicle
-    </button>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal_addowner">
-        Add Owner
-    </button>
-    <div class="jumbotron">
+<br><br><br>
+<div class="container">
+    <h1>{{config.get('TITLE')}} - Opportunities </h1>
+    <div class="jumbotron mt-2">
     <ul class="list-group">
         {% for opportunitie in opportunities %}
         <li class="list-group-item">
-            <h6>{{opportunitie.name}}</h6>
-            <button class="btn btn-danger" onclick="delete_owner('{{opportunitie.id}}')" >Delete Owner</button>
-
+            <p>{{opportunitie.name}}</p>
+            <button class="btn btn-danger btn-sm" onclick="delete_owner('{{opportunitie.id}}')" >Delete Owner</button>
         </li>
         {% endfor %}
         {% if not opportunities %}
-        <h2>You don't have oppotunitie</h2>
+        <h2>You don't have oppotunities</h2>
         {% endif %}
     </ul>
     </div>
@@ -110,9 +123,9 @@
         </div>
     </div>
 </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-<script src="{{ url_for('static', filename='js/index.js')}}"></script>
-<script src="{{ url_for('static', filename='js/owner.js')}}"></script>
+<script src="{{ url_for('static', filename='js/functions.js')}}"></script>
 {% endblock %}
 
 

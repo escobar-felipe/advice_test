@@ -1,52 +1,81 @@
-{% extends "index.html" %}
+{% extends "bootstrap/base.html" %}
+{% block title %}{{config.get('TITLE')}}{% endblock %}
+
+{% block navbar %}
+
+<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{url_for('webui.index')}}">Carford</a>
+      </div>    
+      <ul class="nav navbar-nav">
+        <li><a href="{{url_for('webui.index')}}">Home</a></li>
+        </ul>
+      <div class="navbar-collapse collapse">
+      </div><!--/.navbar-collapse -->
+    </div>
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
 
 <!--vehicles_owners[0] == Owner
     vehicles_owners[1] == Vehicle_Owner
     vehicles_owners[2] == Vehicle 
 -->
-
-<div class="container">
+<br>
+<div class="jumbotron">
     <div class="text-center">
         <h1>{{ vehicles_owners[0][0].name }}</h1>
-        <p>Vehicles</p> 
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_addvehicle">
             Add Vehicle
         </button>
         <button class="btn btn-danger" onclick="delete_owner('{{vehicles_owners[0][0].id}}')" >Delete Owner</button>
     </div>
-    {% for vehicle_owner in vehicles_owners %}
-        <div class="jumbotron">
-            <h2>{{vehicle_owner[2].brand}}</h2>
-            <h4>{{vehicle_owner[2].color}}</h4>
-            <p>
-                {{vehicle_owner[2].model}}
-            </p>
-            <button data-toggle="modal" data-target="#modal_updateowner">New Owner</button>        
-            <button onclick="delete_car('{{vehicle_owner[2].id}}')">Delete</button>
-        </div>
-        
-        <div class="modal fade" id="modal_updateowner" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    <h4 class="modal-title" id="modalLabel">Update owner</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="owner">New Owner:</label>
-                            {{ form_owners.owner( class="form-control") }}
+    <br>
+</div>
+    <div class="container">
+        <div class="row">
+            {% for vehicle_owner in vehicles_owners %}
+            <div class="col-md-4 text-center">
+                <h2>{{vehicle_owner[2].brand}}</h2>
+                <h4>{{vehicle_owner[2].color}}</h4>
+                <p>
+                    {{vehicle_owner[2].model}}
+                </p>
+                <button class="btn btn-default" data-toggle="modal" data-target="#modal_updateowner">New Owner</button>        
+                <button class="btn btn-default" onclick="delete_car('{{vehicle_owner[2].id}}')">Delete</button>
+            </div>
+            
+            <div class="modal fade" id="modal_updateowner" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        <h4 class="modal-title" id="modalLabel">Update owner</h4>
                         </div>
-                        <button onclick="update_owner('{{vehicle_owner[2].id}}')" id="btn_update_submit" class="btn btn-primary">Submit</button>                
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="owner">New Owner:</label>
+                                {{ form_owners.owner( class="form-control") }}
+                            </div>
+                            <button onclick="update_owner('{{vehicle_owner[2].id}}')" id="btn_update_submit" class="btn btn-primary">Submit</button>                
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-
+        {% endfor %}
+    </div>
+    </div>
     <div class="modal fade" id="modal_addvehicle" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -82,6 +111,6 @@
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-<script src="{{ url_for('static', filename='js/owner.js')}}"></script>
-<script src="{{ url_for('static', filename='js/index.js')}}"></script>
+<script src="{{ url_for('static', filename='js/functions.js')}}"></script>
+
 {% endblock %}
